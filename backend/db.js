@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect("mongodb+srv://yashuradecomp23:NYFRMlLAGvwNARWd@cluster0.v6plb.mongodb.net/PAYTM");
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -28,7 +36,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         maxLength: 50
     }
-})
+});
+
 const accountSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -39,11 +48,12 @@ const accountSchema = new mongoose.Schema({
         type: Number,
         required: true
     }
-})
-const Account = mongoose.model("account",accountSchema);
-const User = mongoose.model("User",userSchema);
+});
+
+const Account = mongoose.model("account", accountSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = {
     User,
     Account
-}
+};

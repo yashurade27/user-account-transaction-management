@@ -25,7 +25,7 @@ export const Dashboard = () => {
         };
 
         fetchBalance();
-    }, []);  // Empty dependency array means this effect runs only once when the component mounts
+    }, []);  //Empty dependency array means this effect runs only once when the component mounts
 
     return (
         <div>

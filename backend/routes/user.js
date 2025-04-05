@@ -125,4 +125,19 @@ router.get("/bulk",async (req,res)=>{
     })
 })
 
+
+router.get("/balance", authMiddleware, async (req, res) => {
+    try {
+        const account = await Account.findOne({ userId: req.userId });
+        if (!account) {
+            return res.status(404).json({ msg: "Account not found" });
+        }
+        res.status(200).json({ balance: account.balance });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: "Error fetching balance" });
+    }
+});
+
+
 module.exports = router;

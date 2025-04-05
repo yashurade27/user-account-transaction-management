@@ -5,7 +5,7 @@ const { JWT_SECRETS } = require("./config");
 const authMiddleware = (req,res,next)=>{
     const authHeader = req.headers.authorization;
     if(!authHeader || !authHeader.startsWith('Bearer ')){
-        return res.status(411).json({});
+        return res.status(411).json({ msg: "Authorization header missing"});
     }
     const token = authHeader.split(" ")[1];
 
